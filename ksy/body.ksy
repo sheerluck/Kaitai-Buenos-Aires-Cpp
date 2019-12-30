@@ -24,8 +24,25 @@ seq:
     type: u4
   - id: charcnt
     type: u4
-  - id: trans
+  - id: unix_time
     type: s8
     repeat: expr
     repeat-expr: timecnt
+  - id: type_index
+    type: u1
+    repeat: expr
+    repeat-expr: timecnt
+  - id: info
+    type: intbb
+    repeat: expr
+    repeat-expr: typecnt
 
+types:
+  intbb:
+    seq:
+      - id: utc_offset
+        type: u4
+      - id: is_dst
+        type: u1
+      - id: abbr_index
+        type: u1
