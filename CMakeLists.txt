@@ -14,13 +14,10 @@ add_definitions(-DKS_STR_ENCODING_NONE)
 include_directories(.)
 
 add_executable(Buenos-Aires main.cpp
-        utils.h utils.cpp
-        calmsize.h calmsize.cpp
+               utils.h utils.cpp
 
-        ksy_helper.h ksy_helper.cpp
-        ksy/mkv.h ksy/mkv.cpp
-        ksy/mp4.h ksy/mp4.cpp
-        ksy/mp4_atom.h ksy/mp4_atom.cpp
-        kaitai/kaitaistream.cpp)
+               ksy_helper.h ksy_helper.cpp
+               ksy/header.h ksy/header.cpp
+               kaitai/kaitaistream.cpp)
 
-target_link_libraries(mkv fmt::fmt)
+target_link_libraries(Buenos-Aires fmt::fmt)
