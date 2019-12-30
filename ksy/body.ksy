@@ -25,7 +25,7 @@ seq:
   - id: charcnt
     type: u4
   - id: trans
-    type: f8
+    type: s8
     repeat: expr
     repeat-expr: timecnt
 

@@ -29,7 +29,7 @@ private:
     uint32_t m_timecnt;
     uint32_t m_typecnt;
     uint32_t m_charcnt;
-    std::unique_ptr<std::vector<double>> m_trans;
+    std::unique_ptr<std::vector<int64_t>> m_trans;
     header8body_t* m__root;
     kaitai::kstruct* m__parent;
 
@@ -43,7 +43,7 @@ public:
     uint32_t timecnt() const { return m_timecnt; }
     uint32_t typecnt() const { return m_typecnt; }
     uint32_t charcnt() const { return m_charcnt; }
-    std::vector<double>* trans() const { return m_trans.get(); }
+    std::vector<int64_t>* trans() const { return m_trans.get(); }
     header8body_t* _root() const { return m__root; }
     kaitai::kstruct* _parent() const { return m__parent; }
 };

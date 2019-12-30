@@ -24,10 +24,10 @@ void header8body_t::_read() {
     m_typecnt = m__io->read_u4be();
     m_charcnt = m__io->read_u4be();
     int l_trans = timecnt();
-    m_trans = std::unique_ptr<std::vector<double>>(new std::vector<double>());
+    m_trans = std::unique_ptr<std::vector<int64_t>>(new std::vector<int64_t>());
     m_trans->reserve(l_trans);
     for (int i = 0; i < l_trans; i++) {
-        m_trans->push_back(std::move(m__io->read_f8be()));
+        m_trans->push_back(std::move(m__io->read_s8be()));
     }
 }
 
