@@ -1,5 +1,5 @@
 meta:
-  id: header4
+  id: header8body
   endian: be
   license: WTF
   ks-version: 0.9
@@ -24,4 +24,8 @@ seq:
     type: u4
   - id: charcnt
     type: u4
+  - id: trans
+    type: f8
+    repeat: expr
+    repeat-expr: timecnt
 

@@ -1,7 +1,7 @@
 #include "ksy_helper.h"
 
-#include "ksy/header.h"
-//#include "ksy/body.h"
+#include "ksy/header4.h"
+#include "ksy/header8body.h"
 
 double
 mkv_duration(kaitai::kstream* pks)
@@ -111,7 +111,7 @@ mp4_duration(kaitai::kstream* pks, uintmax_t fsize)
 }
 
 uint64_t
-skip4(const header_t& o)  // TimeZoneInfo::Header::DataLength
+skip4(const header4_t& o)  // TimeZoneInfo::Header::DataLength
 {
     uint64_t len = 0;
     len += 5 * o.timecnt();
@@ -126,11 +126,16 @@ skip4(const header_t& o)  // TimeZoneInfo::Header::DataLength
 Triple
 detail(kaitai::kstream* pks)
 {
-    header_t o = header_t(pks);
-    o._read();
-    // We're skipping the entire v1 file since
-    // at least the same data will be found in TZFile 2.
-    o._io()->seek(44 + skip4(o));
+    auto offset = uint64_t{0};
+    {
+        header4_t o = header4_t(pks);
+        o._read();
+        // We're skipping the entire v1 file since
+        // at least the same data will be found in TZFile 2.
+        offset = 44 + skip4(o);
+    }
+    header8body_t o = header8body_t(pks);
+    o._io()->seek(offset);
     o._read();
 
     const auto txt = fmt::format(

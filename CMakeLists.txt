@@ -17,7 +17,8 @@ add_executable(Buenos-Aires main.cpp
                utils.h utils.cpp
 
                ksy_helper.h ksy_helper.cpp
-               ksy/header.h ksy/header.cpp
+               ksy/header4.h ksy/header4.cpp
+               ksy/header8body.h ksy/header8body.cpp
                kaitai/kaitaistream.cpp)
 
 target_link_libraries(Buenos-Aires fmt::fmt)

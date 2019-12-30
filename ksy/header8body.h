@@ -5,18 +5,19 @@
 #include "kaitai/kaitaistruct.h"
 #include <stdint.h>
 #include <memory>
+#include <vector>
 
 #if KAITAI_STRUCT_VERSION < 9000L
 #error "Incompatible Kaitai Struct C++/STL API: version 0.9 or later is required"
 #endif
 
-class header_t : public kaitai::kstruct {
+class header8body_t : public kaitai::kstruct {
 
 public:
 
-    header_t(kaitai::kstream* p__io, std::unique_ptr<kaitai::kstruct> p__parent = nullptr, header_t* p__root = nullptr);
+    header8body_t(kaitai::kstream* p__io, kaitai::kstruct* p__parent = nullptr, header8body_t* p__root = nullptr);
     void _read();
-    ~header_t();
+    ~header8body_t();
 
 private:
     std::string m_magic;
@@ -28,8 +29,9 @@ private:
     uint32_t m_timecnt;
     uint32_t m_typecnt;
     uint32_t m_charcnt;
-    header_t* m__root;
-    std::unique_ptr<kaitai::kstruct> m__parent;
+    std::unique_ptr<std::vector<double>> m_trans;
+    header8body_t* m__root;
+    kaitai::kstruct* m__parent;
 
 public:
     std::string magic() const { return m_magic; }
@@ -41,6 +43,7 @@ public:
     uint32_t timecnt() const { return m_timecnt; }
     uint32_t typecnt() const { return m_typecnt; }
     uint32_t charcnt() const { return m_charcnt; }
-    header_t* _root() const { return m__root; }
-    kaitai::kstruct* _parent() const { return m__parent.get(); }
+    std::vector<double>* trans() const { return m_trans.get(); }
+    header8body_t* _root() const { return m__root; }
+    kaitai::kstruct* _parent() const { return m__parent; }
 };
