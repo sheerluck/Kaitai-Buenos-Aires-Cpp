@@ -113,5 +113,14 @@ mp4_duration(kaitai::kstream* pks, uintmax_t fsize)
 Triple
 detail(kaitai::kstream* pks)
 {
-    return {1,2,3};
+    header_t o = header_t(pks);
+    o._read();
+    const auto txt = fmt::format(
+        "tt{a}-tt{b}-time{c}-type{d}-char{e}",
+        "a"_a=o.ttisutcnt(),
+        "b"_a=o.ttisstdcnt(),
+        "c"_a=o.timecnt(),
+        "d"_a=o.typecnt(),
+        "e"_a=o.charcnt());
+    return {o.version(),o.leapcnt(),txt};
 }

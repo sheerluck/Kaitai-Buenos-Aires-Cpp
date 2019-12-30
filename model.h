@@ -6,5 +6,5 @@
 using namespace std::string_literals;
 using namespace fmt::literals;
 namespace fs = std::filesystem;
-using Triple = std::tuple<int, int, int>;
+using Triple = std::tuple<int, int, std::string>;
 

@@ -36,11 +36,18 @@ format(const double seconds)
 }
 
 std::string
-format(const std::string& prefix, const fs::path& path)
+format(const std::string& prefix, const std::string& path)
 {
-    return "oh";
+    const auto result = path.substr(prefix.length());
+    return result.starts_with("/") ? result.substr(1) : result;
 }
 
+std::string
+tail(std::string const& source, size_t const length)
+{
+    if (length >= source.size()) return source;
+    return source.substr(source.size() - length);
+}
 
 std::string
 pad(const std::string& s, std::size_t max)

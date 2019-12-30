@@ -19,7 +19,7 @@ extern char **environ;
 
 int main (int argc, char *argv[])
 {
-    print_argv(*argv, *environ);
+    //print_argv(*argv, *environ);
     cxxopts::Options options("mkv", "description");
     options.add_options()
         ("h,help",           "help")
@@ -44,6 +44,7 @@ int main (int argc, char *argv[])
         auto data = std::map<std::string, std::string>{};
         auto doptions = fs::directory_options::skip_permission_denied;
         for(const auto& p: fs::recursive_directory_iterator(fs::path{path}, doptions))
+        {
             if (fs::is_regular_file(p))
             {
                 try
@@ -55,7 +56,7 @@ int main (int argc, char *argv[])
                             "version"_a=version,
                             "leapcnt"_a=leapcnt,
                             "str"_a    =str);
-                    const auto key = format(path, p.path());
+                    const auto key = format(path, p.path().string());
                     const auto [it, ok] = data.try_emplace(key, line);
                     if (!ok) throw std::runtime_error("y u do dis to me");
                 }
@@ -64,13 +65,11 @@ int main (int argc, char *argv[])
                     say_what_again(e, p.path().string());
                 }
             }
-
-        for (auto& [key, vec] : data)
+        }
+        std::cout << "\n\n";
+        for (auto& [key, line] : data)
         {
-            std::sort(std::begin(vec), std::end(vec));
-            for (const auto& p : vec)
-            {
-            }
+            std:: cout << line << '\n';
         }
         std::cout << "\n\n";
     }
