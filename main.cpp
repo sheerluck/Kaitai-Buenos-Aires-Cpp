@@ -45,18 +45,19 @@ int main (int argc, char *argv[])
         auto doptions = fs::directory_options::skip_permission_denied;
         for(const auto& p: fs::recursive_directory_iterator(fs::path{path}, doptions))
         {
+            const auto key = format(path, p.path().string());
+            if ("America/New_York"s != key) continue;
             if (fs::is_regular_file(p))
             {
                 try
                 {
                     const auto [version, leapcnt, str] = zoneinfo(p);
                     const auto line = fmt::format(
-                            "Hello, {name}! Version={version}, leap={leapcnt}, '{str}'",
-                            "name"_a   =p.path().filename().string(),
+                            "Hello, {name}!\tVersion={version}, leap={leapcnt}, '{str}'",
+                            "name"_a   =key,
                             "version"_a=version,
                             "leapcnt"_a=leapcnt,
                             "str"_a    =str);
-                    const auto key = format(path, p.path().string());
                     const auto [it, ok] = data.try_emplace(key, line);
                     if (!ok) throw std::runtime_error("y u do dis to me");
                 }

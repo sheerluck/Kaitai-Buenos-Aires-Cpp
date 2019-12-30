@@ -3,7 +3,6 @@
 // This is a generated file! Please edit source .ksy file and use kaitai-struct-compiler to rebuild
 
 #include "kaitai/kaitaistruct.h"
-
 #include <stdint.h>
 #include <memory>
 
@@ -15,7 +14,7 @@ class header_t : public kaitai::kstruct {
 
 public:
 
-    header_t(kaitai::kstream* p__io, kaitai::kstruct* p__parent = nullptr, header_t* p__root = nullptr);
+    header_t(kaitai::kstream* p__io, std::unique_ptr<kaitai::kstruct> p__parent = nullptr, header_t* p__root = nullptr);
     void _read();
     ~header_t();
 
@@ -30,7 +29,7 @@ private:
     uint32_t m_typecnt;
     uint32_t m_charcnt;
     header_t* m__root;
-    kaitai::kstruct* m__parent;
+    std::unique_ptr<kaitai::kstruct> m__parent;
 
 public:
     std::string magic() const { return m_magic; }
@@ -43,5 +42,5 @@ public:
     uint32_t typecnt() const { return m_typecnt; }
     uint32_t charcnt() const { return m_charcnt; }
     header_t* _root() const { return m__root; }
-    kaitai::kstruct* _parent() const { return m__parent; }
+    kaitai::kstruct* _parent() const { return m__parent.get(); }
 };

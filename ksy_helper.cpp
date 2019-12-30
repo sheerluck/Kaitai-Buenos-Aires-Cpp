@@ -110,11 +110,29 @@ mp4_duration(kaitai::kstream* pks, uintmax_t fsize)
     return 3.1415926535897932;
 }
 
+uint64_t
+skip4(const header_t& o)  // TimeZoneInfo::Header::DataLength
+{
+    uint64_t len = 0;
+    len += 5 * o.timecnt();
+    len += 6 * o.typecnt();
+    len += o.charcnt();
+    len += 9 * o.leapcnt();
+    len += o.ttisstdcnt();
+    len += o.ttisutcnt();
+    return len;
+}
+
 Triple
 detail(kaitai::kstream* pks)
 {
     header_t o = header_t(pks);
     o._read();
+    // We're skipping the entire v1 file since
+    // at least the same data will be found in TZFile 2.
+    o._io()->seek(44 + skip4(o));
+    o._read();
+
     const auto txt = fmt::format(
         "tt{a}-tt{b}-time{c}-type{d}-char{e}",
         "a"_a=o.ttisutcnt(),
